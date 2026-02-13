@@ -33,21 +33,22 @@ export default function CompanyList() {
     <>
       <div className="page-header">
         <h1>Company Drives</h1>
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <div className="btn-group">
           <input
             type="text"
             placeholder="Filter by academic year"
             value={academicYear}
             onChange={(e) => setAcademicYear(e.target.value)}
-            style={{ width: '180px', padding: '0.5rem', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)' }}
+            className="filter-input"
           />
           <Link to="/coordinator/companies/new" className="btn btn-primary">Add Company</Link>
         </div>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -81,7 +82,15 @@ export default function CompanyList() {
               ))}
             </tbody>
           </table>
-          {companies.length === 0 && <p style={{ padding: '1rem', color: 'var(--text-muted)' }}>No companies yet. Add one to get started.</p>}
+          </div>
+          {companies.length === 0 && (
+            <div className="empty-state">
+              <div className="empty-state-icon" aria-hidden="true">—</div>
+              <div className="empty-state-title">No companies yet</div>
+              <p className="empty-state-text">Add your first company drive to get started.</p>
+              <Link to="/coordinator/companies/new" className="btn btn-primary" style={{ marginTop: '1rem' }}>Add Company</Link>
+            </div>
+          )}
         </div>
       )}
     </>

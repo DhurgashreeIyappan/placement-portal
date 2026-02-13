@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { getExperiences } from '../../api/experienceApi';
 import axios from '../../api/axios';
 
 export default function ExperienceBrowse() {
+  const { user } = useAuth();
   const [experiences, setExperiences] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [companyFilter, setCompanyFilter] = useState('');
@@ -29,7 +31,9 @@ export default function ExperienceBrowse() {
     <>
       <div className="page-header">
         <h1>Interview Experiences</h1>
-        <Link to="/experiences/submit" className="btn btn-primary">Submit Experience (Placed students)</Link>
+        {user?.role === 'student' && (
+          <Link to="/experiences/submit" className="btn btn-primary">Submit Experience (Placed students)</Link>
+        )}
       </div>
       <div className="card" style={{ marginBottom: '1rem' }}>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -47,11 +51,18 @@ export default function ExperienceBrowse() {
         </div>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : experiences.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No approved experiences yet.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No approved experiences yet</div>
+            <p className="empty-state-text">Interview experiences shared by placed students will appear here once approved.</p>
+          </div>
+        </div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -72,6 +83,7 @@ export default function ExperienceBrowse() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </>

@@ -29,9 +29,9 @@ export default function Login() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 400, margin: '4rem auto' }}>
-      <div className="card">
-        <h1 style={{ marginBottom: '1rem' }}>Login</h1>
+    <div className="auth-container">
+      <div className="card auth-card">
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
@@ -42,11 +42,13 @@ export default function Login() {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
           </div>
           {error && <p className="error-msg">{error}</p>}
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+          </div>
         </form>
-        <p style={{ marginTop: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+        <p className="auth-footer">
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>

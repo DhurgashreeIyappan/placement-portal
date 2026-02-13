@@ -44,9 +44,9 @@ export default function Register() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 480, margin: '2rem auto' }}>
-      <div className="card">
-        <h1 style={{ marginBottom: '1rem' }}>Register</h1>
+    <div className="auth-container" style={{ maxWidth: 520 }}>
+      <div className="card auth-card">
+        <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Name *</label>
@@ -100,11 +100,13 @@ export default function Register() {
             </>
           )}
           {error && <p className="error-msg">{error}</p>}
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
-          </button>
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Registering...' : 'Register'}
+            </button>
+          </div>
         </form>
-        <p style={{ marginTop: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+        <p className="auth-footer">
           Already have an account? <Link to="/login">Login</Link>
         </p>
       </div>

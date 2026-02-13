@@ -12,7 +12,7 @@ export default function MyProgress() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="loading-state">Loading...</div>;
 
   return (
     <>
@@ -20,12 +20,19 @@ export default function MyProgress() {
         <h1>Interview Progress</h1>
       </div>
       {progress.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No registrations yet. Register for a company drive to see progress.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No registrations yet</div>
+            <p className="empty-state-text">Register for a company drive to see your interview progress here.</p>
+          </div>
+        </div>
       ) : (
         progress.map((item, idx) => (
           <div key={idx} className="card">
             <h3>{item.registration?.company?.name} ({item.registration?.company?.academicYear})</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '0.75rem' }}>Registration status: <span className="badge badge-info">{item.registration?.status}</span></p>
+            <p className="text-muted" style={{ marginBottom: '0.75rem' }}>Registration status: <span className="badge badge-info">{item.registration?.status}</span></p>
+            <div className="table-wrapper">
             <table>
               <thead>
                 <tr>
@@ -46,6 +53,7 @@ export default function MyProgress() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         ))
       )}

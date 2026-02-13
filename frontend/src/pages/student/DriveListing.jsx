@@ -49,11 +49,18 @@ export default function DriveListing() {
       </div>
       {message && <p className={message.includes('success') ? 'success-msg' : 'error-msg'}>{message}</p>}
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : companies.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No published drives at the moment.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No published drives</div>
+            <p className="empty-state-text">There are no open company drives at the moment. Check back later.</p>
+          </div>
+        </div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -99,6 +106,7 @@ export default function DriveListing() {
               ))}
             </tbody>
           </table>
+          </div>
           {eligibility && (
             <div className="card" style={{ marginTop: '1rem' }}>
               <h4>Eligibility for {eligibility.company?.name}</h4>

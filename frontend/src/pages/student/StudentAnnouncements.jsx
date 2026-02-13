@@ -12,7 +12,7 @@ export default function StudentAnnouncements() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="loading-state">Loading...</div>;
 
   return (
     <>
@@ -20,15 +20,21 @@ export default function StudentAnnouncements() {
         <h1>Notifications & Announcements</h1>
       </div>
       {announcements.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No announcements from your groups yet.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No announcements yet</div>
+            <p className="empty-state-text">Announcements from your groups will appear here.</p>
+          </div>
+        </div>
       ) : (
         <div className="card">
-          <ul style={{ listStyle: 'none' }}>
+          <ul className="announcement-list">
             {announcements.map((a) => (
-              <li key={a._id} style={{ borderBottom: '1px solid var(--border)', padding: '1rem 0' }}>
+              <li key={a._id} className="announcement-item">
                 <strong>{a.title}</strong>
-                <span className="badge badge-info" style={{ marginLeft: '0.5rem' }}>{a.group?.name}</span>
-                <p style={{ marginTop: '0.5rem', color: 'var(--text-muted)' }}>{a.content}</p>
+                <span className="badge badge-info">{a.group?.name}</span>
+                <p className="text-muted">{a.content}</p>
                 <small>{new Date(a.createdAt).toLocaleString()} · {a.createdBy?.name}</small>
               </li>
             ))}

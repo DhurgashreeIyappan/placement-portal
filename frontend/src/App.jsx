@@ -35,7 +35,7 @@ function AppRoutes() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div className="container" style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+    return <div className="loading-state">Loading...</div>;
   }
 
   return (

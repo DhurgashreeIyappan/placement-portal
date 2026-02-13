@@ -26,9 +26,10 @@ export default function GroupList() {
         <Link to="/coordinator/groups/new" className="btn btn-primary">Create Group</Link>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -54,7 +55,15 @@ export default function GroupList() {
               ))}
             </tbody>
           </table>
-          {groups.length === 0 && <p style={{ padding: '1rem', color: 'var(--text-muted)' }}>No groups yet.</p>}
+          </div>
+          {groups.length === 0 && (
+            <div className="empty-state">
+              <div className="empty-state-icon" aria-hidden="true">—</div>
+              <div className="empty-state-title">No groups yet</div>
+              <p className="empty-state-text">Create a group to manage students by company or batch.</p>
+              <Link to="/coordinator/groups/new" className="btn btn-primary" style={{ marginTop: '1rem' }}>Create Group</Link>
+            </div>
+          )}
         </div>
       )}
     </>

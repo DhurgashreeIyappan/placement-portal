@@ -12,7 +12,7 @@ export default function PlacementHistory() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="loading-state">Loading...</div>;
 
   return (
     <>
@@ -20,9 +20,16 @@ export default function PlacementHistory() {
         <h1>Placement History</h1>
       </div>
       {placements.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No placement records yet.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No placement records yet</div>
+            <p className="empty-state-text">Your placement history will appear here once recorded.</p>
+          </div>
+        </div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -45,6 +52,7 @@ export default function PlacementHistory() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </>

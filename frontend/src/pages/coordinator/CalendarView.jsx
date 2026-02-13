@@ -123,12 +123,17 @@ export default function CalendarView() {
         </div>
       )}
       <div className="card">
-        <h3>Upcoming events</h3>
+        <h2 className="section-title">Upcoming events</h2>
         {loading ? (
-          <p>Loading...</p>
+          <div className="loading-state">Loading...</div>
         ) : events.length === 0 ? (
-          <p style={{ color: 'var(--text-muted)' }}>No events. Add one above.</p>
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No events yet</div>
+            <p className="empty-state-text">Add an event above to build your placement calendar.</p>
+          </div>
         ) : (
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -154,6 +159,7 @@ export default function CalendarView() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </>

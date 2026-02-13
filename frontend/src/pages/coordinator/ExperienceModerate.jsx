@@ -33,7 +33,7 @@ export default function ExperienceModerate() {
       </div>
       <div className="card" style={{ marginBottom: '1rem' }}>
         <label>Filter by status: </label>
-        <select value={filter} onChange={(e) => setFilter(e.target.value)} style={{ marginLeft: '0.5rem', padding: '0.35rem', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)' }}>
+        <select value={filter} onChange={(e) => setFilter(e.target.value)} className="filter-input" style={{ marginLeft: '0.5rem' }}>
           <option value="pending">Pending</option>
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
@@ -41,11 +41,18 @@ export default function ExperienceModerate() {
         </select>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : experiences.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No experiences in this category.</p>
+        <div className="card">
+          <div className="empty-state">
+            <div className="empty-state-icon" aria-hidden="true">—</div>
+            <div className="empty-state-title">No experiences in this category</div>
+            <p className="empty-state-text">Change the filter or wait for students to submit experiences.</p>
+          </div>
+        </div>
       ) : (
         <div className="card">
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -76,6 +83,7 @@ export default function ExperienceModerate() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </>

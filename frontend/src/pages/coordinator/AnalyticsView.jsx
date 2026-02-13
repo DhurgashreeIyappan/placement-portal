@@ -25,35 +25,36 @@ export default function AnalyticsView() {
           placeholder="Filter by academic year"
           value={academicYear}
           onChange={(e) => setAcademicYear(e.target.value)}
-          style={{ padding: '0.5rem', width: 160, background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)' }}
+          className="filter-input"
         />
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading...</div>
       ) : (
         <>
           <div className="grid-2" style={{ marginBottom: '1.5rem' }}>
-            <div className="card">
-              <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Companies</h3>
-              <p style={{ fontSize: '1.5rem', fontWeight: 600 }}>{summary?.totalCompanies ?? 0}</p>
+            <div className="stat-card">
+              <div className="stat-label">Total Companies</div>
+              <div className="stat-value">{summary?.totalCompanies ?? 0}</div>
             </div>
-            <div className="card">
-              <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Registrations</h3>
-              <p style={{ fontSize: '1.5rem', fontWeight: 600 }}>{summary?.totalRegistrations ?? 0}</p>
+            <div className="stat-card">
+              <div className="stat-label">Total Registrations</div>
+              <div className="stat-value">{summary?.totalRegistrations ?? 0}</div>
             </div>
-            <div className="card">
-              <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Placed Students</h3>
-              <p style={{ fontSize: '1.5rem', fontWeight: 600 }}>{summary?.placedCount ?? 0}</p>
+            <div className="stat-card">
+              <div className="stat-label">Placed Students</div>
+              <div className="stat-value">{summary?.placedCount ?? 0}</div>
             </div>
-            <div className="card">
-              <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Students</h3>
-              <p style={{ fontSize: '1.5rem', fontWeight: 600 }}>{summary?.totalStudents ?? 0}</p>
+            <div className="stat-card">
+              <div className="stat-label">Total Students</div>
+              <div className="stat-value">{summary?.totalStudents ?? 0}</div>
             </div>
           </div>
           <div className="card">
-            <h2 style={{ marginBottom: '1rem' }}>Company-wise report</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Click on a company to see detailed report (registrations, rounds, placed).</p>
+            <h2 className="section-title">Company-wise report</h2>
+            <p className="section-subtitle">Click on a company to see detailed report (registrations, rounds, placed).</p>
             {summary?.companies?.length > 0 ? (
+              <div className="table-wrapper">
               <table>
                 <thead>
                   <tr>
@@ -76,15 +77,25 @@ export default function AnalyticsView() {
                   ))}
                 </tbody>
               </table>
+              </div>
             ) : (
-              <p style={{ color: 'var(--text-muted)' }}>No companies in this period.</p>
+              <div className="empty-state">
+                <div className="empty-state-icon" aria-hidden="true">—</div>
+                <div className="empty-state-title">No companies in this period</div>
+                <p className="empty-state-text">Try a different academic year filter or add company drives.</p>
+              </div>
             )}
           </div>
           <div className="card">
-            <h2 style={{ marginBottom: '1rem' }}>Placed students list</h2>
+            <h2 className="section-title">Placed students list</h2>
             {placements.length === 0 ? (
-              <p style={{ color: 'var(--text-muted)' }}>No placements in this period.</p>
+              <div className="empty-state">
+                <div className="empty-state-icon" aria-hidden="true">—</div>
+                <div className="empty-state-title">No placements in this period</div>
+                <p className="empty-state-text">Placement records will appear here once students are marked as placed.</p>
+              </div>
             ) : (
+              <div className="table-wrapper">
               <table>
                 <thead>
                   <tr>
@@ -107,6 +118,7 @@ export default function AnalyticsView() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         </>

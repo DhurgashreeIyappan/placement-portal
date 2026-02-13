@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export function Layout({ children }) {
@@ -13,28 +13,32 @@ export function Layout({ children }) {
   return (
     <>
       <nav className="navbar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {user && <Link to={user.role === 'coordinator' ? '/coordinator' : '/student'}>Dashboard</Link>}
+        <div className="navbar-nav">
+          {user && (
+            <NavLink to={user.role === 'coordinator' ? '/coordinator' : '/student'} end>
+              Dashboard
+            </NavLink>
+          )}
           {user?.role === 'coordinator' && (
             <>
-              <Link to="/coordinator/companies">Companies</Link>
-              <Link to="/coordinator/groups">Groups</Link>
-              <Link to="/coordinator/calendar">Calendar</Link>
-              <Link to="/coordinator/analytics">Analytics</Link>
-              <Link to="/coordinator/experiences">Moderate Experiences</Link>
+              <NavLink to="/coordinator/companies">Companies</NavLink>
+              <NavLink to="/coordinator/groups">Groups</NavLink>
+              <NavLink to="/coordinator/calendar">Calendar</NavLink>
+              <NavLink to="/coordinator/analytics">Analytics</NavLink>
+              <NavLink to="/coordinator/experiences">Moderate Experiences</NavLink>
             </>
           )}
           {user?.role === 'student' && (
             <>
-              <Link to="/student/drives">Drives</Link>
-              <Link to="/student/progress">Progress</Link>
-              <Link to="/student/placement-history">Placement History</Link>
-              <Link to="/student/announcements">Announcements</Link>
+              <NavLink to="/student/drives">Drives</NavLink>
+              <NavLink to="/student/progress">Progress</NavLink>
+              <NavLink to="/student/placement-history">Placement History</NavLink>
+              <NavLink to="/student/announcements">Announcements</NavLink>
             </>
           )}
-          <Link to="/experiences">Interview Experiences</Link>
+          <NavLink to="/experiences">Interview Experiences</NavLink>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="navbar-nav">
           {user ? (
             <>
               <span className="user-role">{user.name} ({user.role})</span>
@@ -48,7 +52,7 @@ export function Layout({ children }) {
           )}
         </div>
       </nav>
-      <main className="container" style={{ paddingTop: '1.5rem', paddingBottom: '2rem' }}>
+      <main className="page-container">
         {children}
       </main>
     </>

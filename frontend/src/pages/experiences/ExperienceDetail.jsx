@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Calendar, HelpCircle, Lightbulb } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getExperienceById } from '../../api/experienceApi';
 
 export default function ExperienceDetail() {
@@ -14,41 +15,113 @@ export default function ExperienceDetail() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!experience) return <p>Experience not found.</p>;
+  if (loading) return <div className="loading-state"><div className="spinner" /><span>Loading experience...</span></div>;
+  if (!experience) return (
+    <div className="card">
+      <div className="empty-state">
+        <div className="empty-state-title">Experience not found</div>
+        <Link to="/experiences" className="btn btn-primary" style={{ marginTop: 'var(--space-4)' }}>← Back to list</Link>
+      </div>
+    </div>
+  );
 
   return (
     <>
       <div className="page-header">
-        <h1>{experience.companyName || experience.company?.name} — {experience.yearOfVisit}</h1>
-        <Link to="/experiences" className="btn">Back to list</Link>
+        <div>
+          <h1>{experience.companyName || experience.company?.name}</h1>
+          <p style={{ marginTop: 'var(--space-1)' }}>Interview Experience · {experience.yearOfVisit}</p>
+        </div>
+        <Link to="/experiences" className="btn">
+          <ArrowLeft size={16} /> Back to list
+        </Link>
       </div>
-      <div className="card">
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>By {experience.author?.name}</p>
-        {experience.preparationTips && (
-          <section style={{ marginBottom: '1.5rem' }}>
-            <h3>Preparation tips</h3>
-            <p>{experience.preparationTips}</p>
-          </section>
-        )}
-        {experience.roundDetails?.length > 0 && (
-          <section>
-            <h3>Round-wise experience</h3>
+
+      {/* Author info */}
+      <div className="card" style={{ marginBottom: 'var(--space-5)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontWeight: 700, fontSize: 'var(--text-lg)', color: 'white', flexShrink: 0
+          }}>
+            {experience.author?.name?.[0]?.toUpperCase() || '?'}
+          </div>
+          <div>
+            <div style={{ fontWeight: 600, color: 'var(--text)' }}>{experience.author?.name}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--text-xs)', color: 'var(--text-muted)', marginTop: 2 }}>
+              <Calendar size={11} /> Visited {experience.yearOfVisit}
+            </div>
+          </div>
+          <span className="badge badge-success" style={{ marginLeft: 'auto' }}>Placed</span>
+        </div>
+      </div>
+
+      {/* Preparation Tips */}
+      {experience.preparationTips && (
+        <div className="card" style={{ marginBottom: 'var(--space-5)', borderLeft: '3px solid var(--accent-2)' }}>
+          <h2 className="section-title" style={{ color: 'var(--accent-2)' }}>
+            <Lightbulb size={18} color="var(--accent-2)" style={{ marginRight: 'var(--space-2)' }} />
+            Preparation Tips
+          </h2>
+          <p style={{ color: 'var(--text-light)', lineHeight: 1.8, fontSize: 'var(--text-sm)' }}>
+            {experience.preparationTips}
+          </p>
+        </div>
+      )}
+
+      {/* Rounds */}
+      {experience.roundDetails?.length > 0 && (
+        <div>
+          <h2 className="section-title">Round-wise Experience</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
             {experience.roundDetails.map((r, i) => (
-              <div key={i} style={{ marginBottom: '1rem', padding: '0.75rem', background: 'var(--bg)', borderRadius: 6 }}>
-                <strong>{r.roundName || `Round ${r.roundIndex + 1}`}</strong>
-                {r.experience && <p style={{ marginTop: '0.5rem' }}>{r.experience}</p>}
-                {r.questions?.length > 0 && (
-                  <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem' }}>
-                    {r.questions.map((q, j) => <li key={j}>{q}</li>)}
-                  </ul>
+              <div key={i} className="card" style={{ marginBottom: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: '50%',
+                    background: 'var(--gradient-primary)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontWeight: 700, fontSize: 'var(--text-sm)', color: 'white', flexShrink: 0
+                  }}>
+                    {i + 1}
+                  </div>
+                  <h3 style={{ fontWeight: 600, color: 'var(--text)' }}>
+                    {r.roundName || `Round ${i + 1}`}
+                  </h3>
+                </div>
+                {r.experience && (
+                  <p style={{ color: 'var(--text-light)', lineHeight: 1.8, fontSize: 'var(--text-sm)', marginBottom: r.questions?.length ? 'var(--space-4)' : 0 }}>
+                    {r.experience}
+                  </p>
                 )}
-                {r.tips && <p style={{ marginTop: '0.5rem', color: 'var(--text-muted)' }}>Tips: {r.tips}</p>}
+                {r.questions?.length > 0 && (
+                  <div style={{ margin: 'var(--space-3) 0', padding: 'var(--space-4)', background: 'var(--surface-2)', borderRadius: 'var(--radius-sm)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 'var(--space-3)', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      <HelpCircle size={12} /> Questions Asked
+                    </div>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                      {r.questions.map((q, j) => (
+                        <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--text-light)' }}>
+                          <span style={{ color: 'var(--primary-light)', marginTop: 2, flexShrink: 0 }}>→</span>
+                          {q}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {r.tips && (
+                  <div style={{ display: 'flex', gap: 8, padding: 'var(--space-3)', background: 'rgba(255,209,102,0.08)', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(255,209,102,0.15)', marginTop: 'var(--space-3)' }}>
+                    <Lightbulb size={15} color="var(--accent-2)" style={{ flexShrink: 0, marginTop: 1 }} />
+                    <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>{r.tips}</p>
+                  </div>
+                )}
               </div>
             ))}
-          </section>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

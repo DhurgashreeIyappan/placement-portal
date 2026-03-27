@@ -1,71 +1,158 @@
 /**
- * Professional Blue + Soft Gray theme
- * Central theme variables - used across the app via var(--name)
+ * Placement Portal — Supreme Premium Dark Theme
+ * Vercel/Linear style highly polished aesthetic
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
 :root {
-  /* Primary palette */
-  --primary: #1E3A8A;
-  --secondary: #2563EB;
-  --accent: #3B82F6;
-  --accent-hover: #1D4ED8;
+  /* ── Core Brand ── */
+  --primary: #818CF8;
+  --primary-light: #A5B4FC;
+  --primary-glow: rgba(129, 140, 248, 0.4);
+  --secondary: #2DD4BF;
+  --accent: #F472B6;
+  --accent-2: #FBBF24;
 
-  /* Backgrounds */
-  --bg: #F3F4F6;
-  --surface: #FFFFFF;
-  --surface-hover: #E5E7EB;
-  --card-bg: #FFFFFF;
+  /* ── True Deep Dark Backgrounds ── */
+  --bg: #030712;
+  /* Slate 950 */
+  --bg-2: #0F172A;
+  /* Slate 900 */
 
-  /* Borders */
-  --border: #E5E7EB;
+  /* ── Ultra Premium Glass Surfaces ── */
+  --surface: rgba(15, 23, 42, 0.6);
+  --surface-2: rgba(30, 41, 59, 0.7);
+  --surface-hover: rgba(30, 41, 59, 0.9);
 
-  /* Text */
-  --text: #1F2937;
-  --text-light: #6B7280;
-  --text-muted: #6B7280;
+  --card-bg: rgba(9, 14, 23, 0.75);
 
-  /* Status */
-  --success: #16A34A;
-  --error: #DC2626;
-  --warning: #D97706;
+  /* ── Fine Borders (Hairline exactly like Vercel) ── */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-highlight: rgba(255, 255, 255, 0.2);
 
-  /* Navbar */
-  --navbar-bg: #1E3A8A;
-  --navbar-text: #FFFFFF;
-  --navbar-hover: rgba(255, 255, 255, 0.15);
-  --navbar-active: #3B82F6;
+  /* ── Text Priorities ── */
+  --text: #F8FAFC;
+  --text-light: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
 
-  /* Table */
-  --table-header-bg: #EFF6FF;
-  --table-header-text: #1F2937;
-  --table-row-hover: #F9FAFB;
+  /* ── Premium Status Colors (Subdued but bright) ── */
+  --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-border: rgba(16, 185, 129, 0.2);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --error: #EF4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.2);
 
-  /* Spacing */
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --warning-border: rgba(245, 158, 11, 0.2);
+
+  --info: #3B82F6;
+  --info-bg: rgba(59, 130, 246, 0.1);
+  --info-border: rgba(59, 130, 246, 0.2);
+
+  /* ── Structural ── */
+  --navbar-bg: rgba(3, 7, 18, 0.65);
+  --sidebar-width: 260px;
+  --sidebar-bg: rgba(3, 7, 18, 0.4);
+
+  /* ── Table ── */
+  --table-header-bg: rgba(255, 255, 255, 0.03);
+  --table-header-text: #94A3B8;
+  --table-row-hover: rgba(255, 255, 255, 0.02);
+
+  /* ── Cinematic Shadows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-glow: 0 0 30px var(--primary-glow);
+  --glow-accent: 0 0 25px rgba(45, 212, 191, 0.3);
+
+  /* ── Precise Spacing ── */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
 
-  /* Typography */
+  /* ── Typography (Plus Jakarta Sans) ── */
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3.5rem;
+  --font-light: 300;
+  --font-normal: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
+  --font-extrabold: 800;
 
-  /* Radius */
-  --radius: 8px;
-  --radius-sm: 6px;
+  /* ── Sleek Radius ── */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+
+  /* ── Physics-based Transitions ── */
+  --transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Ethereal Gradients ── */
+  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-text: linear-gradient(to right, #ffffff, #a5b4fc);
+  --gradient-border: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+}
+
+:root[data-theme='light'] {
+  /* ── White/Gray Backgrounds ── */
+  --bg: #F8FAFC;
+  --bg-2: #FFFFFF;
+
+  /* ── Light Glass Surfaces ── */
+  --surface: rgba(255, 255, 255, 0.7);
+  --surface-2: rgba(241, 245, 249, 0.8);
+  --surface-hover: rgba(241, 245, 249, 1);
+  --card-bg: rgba(255, 255, 255, 0.9);
+
+  /* ── Darker Borders ── */
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.15);
+  --border-highlight: rgba(0, 0, 0, 0.25);
+
+  /* ── Text Priorities ── */
+  --text: #0F172A;
+  --text-light: #334155;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+
+  /* ── Structural ── */
+  --navbar-bg: rgba(255, 255, 255, 0.8);
+  --sidebar-bg: rgba(248, 250, 252, 0.8);
+  --table-header-bg: rgba(0, 0, 0, 0.03);
+  --table-row-hover: rgba(0, 0, 0, 0.02);
+
+  /* ── Shadows for Light Mode ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+
+  /* ── Gradients ── */
+  --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.6) 100%);
+  --gradient-text: linear-gradient(to right, #0F172A, #6366F1);
+  --gradient-border: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
 }

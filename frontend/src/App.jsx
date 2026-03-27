@@ -1,30 +1,31 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Auth pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 
 // Coordinator pages
-import CoordinatorDashboard from './pages/coordinator/CoordinatorDashboard';
-import CompanyList from './pages/coordinator/CompanyList';
-import CompanyForm from './pages/coordinator/CompanyForm';
-import GroupList from './pages/coordinator/GroupList';
-import GroupForm from './pages/coordinator/GroupForm';
+import AnalyticsView from './pages/coordinator/AnalyticsView';
 import AnnouncementPost from './pages/coordinator/AnnouncementPost';
 import CalendarView from './pages/coordinator/CalendarView';
-import AnalyticsView from './pages/coordinator/AnalyticsView';
+import CompanyForm from './pages/coordinator/CompanyForm';
+import CompanyList from './pages/coordinator/CompanyList';
 import CompanyReport from './pages/coordinator/CompanyReport';
+import CoordinatorDashboard from './pages/coordinator/CoordinatorDashboard';
 import ExperienceModerate from './pages/coordinator/ExperienceModerate';
+import GroupForm from './pages/coordinator/GroupForm';
+import GroupList from './pages/coordinator/GroupList';
 
 // Student pages
-import StudentDashboard from './pages/student/StudentDashboard';
 import DriveListing from './pages/student/DriveListing';
 import MyProgress from './pages/student/MyProgress';
 import PlacementHistory from './pages/student/PlacementHistory';
 import StudentAnnouncements from './pages/student/StudentAnnouncements';
+import StudentDashboard from './pages/student/StudentDashboard';
 
 // Experience (shared)
 import ExperienceBrowse from './pages/experiences/ExperienceBrowse';
@@ -74,8 +75,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

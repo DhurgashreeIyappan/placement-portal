@@ -1,21 +1,20 @@
 import axios from './axios';
 
-const API_URL = (import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const register = (data) => axios.post('/auth/register', data);
 
 export const login = async (data) => {
-	const loginUrl = `${API_URL}/api/auth/login`;
 	const debugPayload = {
 		...data,
 		password: data?.password ? '[REDACTED]' : undefined,
 	};
 
 	console.log('[authApi] API_URL:', API_URL);
-	console.log('[authApi] Login URL:', loginUrl);
+	console.log('[authApi] Login URL:', `${API_URL}/api/auth/login`);
 	console.log('[authApi] Login payload:', debugPayload);
 
-	const response = await fetch(loginUrl, {
+	const response = await fetch(`${API_URL}/api/auth/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

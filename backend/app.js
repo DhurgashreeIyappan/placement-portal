@@ -2,27 +2,31 @@
  * Express application - routes and middleware only.
  * DB connection and server listen are in server.js.
  */
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import { env } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-import authRoutes from './routes/authRoutes.js';
-import companyRoutes from './routes/companyRoutes.js';
-import registrationRoutes from './routes/registrationRoutes.js';
-import groupRoutes from './routes/groupRoutes.js';
-import announcementRoutes from './routes/announcementRoutes.js';
-import calendarRoutes from './routes/calendarRoutes.js';
-import interviewRoundRoutes from './routes/interviewRoundRoutes.js';
-import experienceRoutes from './routes/experienceRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
-import studentRoutes from './routes/studentRoutes.js';
+import announcementRoutes from './routes/announcementRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import calendarRoutes from './routes/calendarRoutes.js';
+import companyRoutes from './routes/companyRoutes.js';
+import experienceRoutes from './routes/experienceRoutes.js';
+import groupRoutes from './routes/groupRoutes.js';
+import interviewRoundRoutes from './routes/interviewRoundRoutes.js';
 import placementRoutes from './routes/placementRoutes.js';
+import registrationRoutes from './routes/registrationRoutes.js';
+import studentRoutes from './routes/studentRoutes.js';
 
 const app = express();
 
 app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
+
+app.get('/', (req, res) => {
+	res.send('🚀 Placement Backend API is running successfully');
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);

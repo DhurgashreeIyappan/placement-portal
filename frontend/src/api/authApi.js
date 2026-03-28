@@ -9,6 +9,7 @@ export const login = async (data) => {
 		password: data?.password ? '[REDACTED]' : undefined,
 	};
 
+	console.log('[authApi] API_BASE:', API_BASE);
 	console.log('[authApi] Login URL:', loginUrl);
 	console.log('[authApi] Login payload:', debugPayload);
 

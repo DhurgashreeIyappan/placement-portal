@@ -4,12 +4,26 @@
  */
 import axios from 'axios';
 
-const rawApiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-export const API_BASE = rawApiUrl
-  ? rawApiUrl.endsWith('/api')
-    ? rawApiUrl
-    : `${rawApiUrl}/api`
-  : '/api';
+const normalizeApiBase = (value) => {
+  const raw = (value || '').trim().replace(/\/+$/, '');
+  if (!raw) return '/api';
+
+  if (/^https?:\/\//i.test(raw)) {
+    try {
+      const parsed = new URL(raw);
+      const cleanPath = parsed.pathname.replace(/\/+$/, '');
+      if (!cleanPath || cleanPath === '/') return `${parsed.origin}/api`;
+      if (cleanPath.endsWith('/api')) return `${parsed.origin}${cleanPath}`;
+      return `${parsed.origin}/api`;
+    } catch {
+      return '/api';
+    }
+  }
+
+  return raw.endsWith('/api') ? raw : `${raw}/api`;
+};
+
+export const API_BASE = normalizeApiBase(import.meta.env.VITE_API_URL);
 
 const axiosInstance = axios.create({
   baseURL: API_BASE,
